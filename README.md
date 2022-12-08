@@ -1,1 +1,1 @@
-# INtroductionToMachineLearning
+# IntroductionToMachineLearning
