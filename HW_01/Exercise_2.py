@@ -15,7 +15,7 @@ pointCount = 500
 
 #function for drawing s random numbers from normal distribution
 def RandNorm( s ):
-    return np.random.normal(loc = 3, scale = 3, size = s)
+    return np.random.normal(loc = 3, scale = np.sqrt(3), size = s)
     
 
 #create two lists filled with random floats drawn from a normal distribution 
