@@ -1,7 +1,7 @@
 #Aufgaben
 #1. Create X and Y by drawing 500 random pointsfrom a normal distribution (done)
 #2. Put them in a 500x2 Matrix called D (done)
-#3. Make a 2D plot ()
+#3. Make a 2D plot (done)
 
 #Setup
 import numpy as np 
@@ -17,16 +17,10 @@ def RandNorm( s ):
 X = RandNorm(pointCount)
 Y = RandNorm(pointCount) 
 
-#create arry by putting in the two lists created earlier and transpose it to get the right shape
+#create array by putting in the two lists created earlier and transpose it to get the right shape
 D = np.array([X,Y])
 np.transpose(D)
 
-
-
-
-for i in np.arange(1, pointCount):
-    
-    plt.scatter(X[:i], Y[:i], s = 20, c = (np.sqrt(X[:i]**2 + Y[:i]**2 )))
-    
+plt.scatter(X, Y, s = 20, c = "orange")    
 
 plt.show()
