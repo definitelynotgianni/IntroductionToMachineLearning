@@ -6,14 +6,13 @@ np.random.seed(42)
 
 n = 50000
 
-#Draw 1000 random numbers from normal distribution
-#def RandNorm(mean, sd):
-#    return np.random.normal(loc = mean,scale = sd,size = n)
-def RandNorm():
-    return np.random.normal(size = n)
+#Draw n random numbers from normal distribution
+#def RandNorm(mean):
+def RandNorm(l):
+    return np.random.normal(loc = l, size = n)
 #Values according to exercise
-X = RandNorm()
-Y = RandNorm()
+X = RandNorm(0)
+Y = RandNorm(2)
 
 #Create 500x2 matrix
 D = np.array([X, Y])
@@ -33,17 +32,24 @@ WantedMatrix = np.array([[9,-5.4], [-5.4, 4]])
 WMEigenDecomposed = np.linalg.eigh(WantedMatrix)
 
 #Correct sample covariance
+
+#Setup variables for Eigen-decomposition and calculations
 SampleCov = np.cov(df)
+#Split Eigenvalues and -vectors
 WMEigenValues = WMEigenDecomposed[0]
 WMEigenVectors = WMEigenDecomposed[1] 
-print(WMEigenValues)
-WMEigenVectors[:,0] = WMEigenVectors[:,0] * np.sqrt(WMEigenValues[0])
 
+#Eigenvoodoo
+WMEigenVectors[:,0] = WMEigenVectors[:,0] * np.sqrt(WMEigenValues[0])
 WMEigenVectors[:,1] = WMEigenVectors[:,1] * np.sqrt(WMEigenValues[1])
 
+#Calculations according to last Slide of second lecture
 CorrectedValues = np.dot(WMEigenVectors,D)
 
-print(np.cov(CorrectedValues))
+#Print the final covariance matrix and sample means
+print("covariance matrix: ", np.cov(CorrectedValues))
+print("mean X: ", np.mean(X))
+print("mean Y: ", np.mean(Y))
 #print(np.cov(df))
 #Inspecting Eigenvalues
 #m = np.cov(df)
