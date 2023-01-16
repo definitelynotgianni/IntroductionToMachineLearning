@@ -25,3 +25,9 @@ def scale(data):
 
 def standardize(data):
     return ( (data - np.mean(data, axis=0)) / np.std(data, axis=0) )
+
+
+print(normalize(D))
+print(scale(D))
+print(standardize(D))
+
