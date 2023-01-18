@@ -136,7 +136,7 @@ epochs = 20
 mini_batch_size = 5
 eta = 0.01
 patience = int(input("Enter patience parameter: "))
-currentLoss = 0
+ListLoss = list()
 fuse = -1
 for i in range(0, epochs):
     np.random.shuffle(train_data)
@@ -150,14 +150,19 @@ for i in range(0, epochs):
         CCE_train.append(categorical_cross_entropy(y_train.reshape([len(y_train), classes]), ff_train.T))
         ff_val = feedforward(X_val.T, Theta)
         CCE_val.append(categorical_cross_entropy(y_val.reshape([len(y_val), classes]), ff_val.T))
-    if categorical_cross_entropy(y_train.reshape([len(y_train), classes]), ff_train.T) >= currentLoss:
-        fuse = fuse + 1
-    else:
-        fuse = 0
-    if fuse >= patience:
-        break
-    currentLoss = categorical_cross_entropy(y_train.reshape([len(y_train), classes]), ff_train.T)
-    print(fuse)
+    #if categorical_cross_entropy(y_train.reshape([len(y_train), classes]), ff_train.T) >= currentLoss:
+    #    fuse = fuse + 1
+    #else:
+    #    fuse = 0
+    #if fuse >= patience:
+    #    break
+    #currentLoss = categorical_cross_entropy(y_train.reshape([len(y_train), classes]), ff_train.T)
+    #print(fuse)
+    ListLoss.append(categorical_cross_entropy(y_train.reshape([len(y_train), classes]), ff_train.T))
+    if i > patience:
+        if ListLoss[i] > ListLoss[i-patience]:
+            print("early halt after epoch ", i)
+            break
     ff_train = feedforward(X_train.T, Theta)
     print("CCE_train after epoch {0}/{1}:".format(i + 1, epochs), categorical_cross_entropy(y_train.reshape([len(y_train), classes]), ff_train.T))
     accuracy_train = (anp.argmax(ff_train.T, axis=1) == anp.argmax(y_train.reshape([len(y_train), classes]), axis=1))
